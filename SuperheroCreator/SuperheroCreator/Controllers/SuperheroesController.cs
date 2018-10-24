@@ -76,10 +76,11 @@ namespace SuperheroCreator.Controllers
         {
             try
             {
+                // The hero's ID changes with this method
                 db.Superheroes.Remove(db.Superheroes.Where(s => s.ID == id).Single());
                 
-                hero = db.Superheroes.Add(hero);
-                hero.ID = id;
+                db.Superheroes.Add(hero);
+
                 //db.Superheroes.Where(s => s.ID == id).Single().Name = hero.Name;
                 //db.Superheroes.Where(s => s.ID == id).Single().AlterEgo = hero.AlterEgo;
                 //db.Superheroes.Where(s => s.ID == id).Single().PrimaryAbility = hero.PrimaryAbility;
@@ -99,7 +100,7 @@ namespace SuperheroCreator.Controllers
         // GET: Superheroes/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(db.Superheroes.Where(s => s.ID == id).Single());
         }
 
         // POST: Superheroes/Delete/5
@@ -108,9 +109,10 @@ namespace SuperheroCreator.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                db.Superheroes.Remove(db.Superheroes.Where(s => s.ID == id).Single());
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
             catch
             {
