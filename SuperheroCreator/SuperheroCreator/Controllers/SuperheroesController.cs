@@ -20,16 +20,7 @@ namespace SuperheroCreator.Controllers
             return View();
         }
 
-        public ActionResult List()
-        {
-            return View(db.Superheroes.ToList());
-        }
-
-        // GET: Superheroes/Details/5
-        public ActionResult Read(int id)
-        {
-            return View(db.Superheroes.Where(s => s.ID == id).Single());
-        }
+        
 
         // GET: Superheroes/Create
         public ActionResult Create()
@@ -39,7 +30,7 @@ namespace SuperheroCreator.Controllers
 
         // POST: Superheroes/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include ="Name,AlterEgo,PrimaryAbility,SecondaryAbility,Catchphrase")] Superhero hero)// binding
+        public ActionResult Create([Bind(Include ="Name,AlterEgo,PrimaryAbility,SecondaryAbility,Catchphrase")] Superhero hero)
         {
             try
             {
@@ -62,10 +53,21 @@ namespace SuperheroCreator.Controllers
             }
         }
 
+        public ActionResult List()
+        {
+            return View(db.Superheroes.ToList());
+        }
+
+        // GET: Superheroes/Details/5
+        public ActionResult Read(int id)
+        {
+            return View(db.Superheroes.Where(s => s.ID == id).Single());
+        }
+
         // GET: Superheroes/Edit/5
         public ActionResult Update(int id)
         {
-            return View();
+            return View(db.Superheroes.Where(s => s.ID == id).Single());
         }
 
         // POST: Superheroes/Edit/5
@@ -76,7 +78,7 @@ namespace SuperheroCreator.Controllers
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index");
             }
             catch
             {
