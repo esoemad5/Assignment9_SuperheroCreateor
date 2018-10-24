@@ -72,13 +72,23 @@ namespace SuperheroCreator.Controllers
 
         // POST: Superheroes/Edit/5
         [HttpPost]
-        public ActionResult Update(int id, FormCollection collection)
+        public ActionResult Update(int id, [Bind(Include = "Name,AlterEgo,PrimaryAbility,SecondaryAbility,Catchphrase")] Superhero hero)
         {
             try
             {
-                // TODO: Add update logic here
+                db.Superheroes.Remove(db.Superheroes.Where(s => s.ID == id).Single());
+                
+                hero = db.Superheroes.Add(hero);
+                hero.ID = id;
+                //db.Superheroes.Where(s => s.ID == id).Single().Name = hero.Name;
+                //db.Superheroes.Where(s => s.ID == id).Single().AlterEgo = hero.AlterEgo;
+                //db.Superheroes.Where(s => s.ID == id).Single().PrimaryAbility = hero.PrimaryAbility;
+                //db.Superheroes.Where(s => s.ID == id).Single().SecondaryAbility = hero.SecondaryAbility;
+                //db.Superheroes.Where(s => s.ID == id).Single().Catchphrase = hero.Catchphrase;
 
-                return RedirectToAction("Index");
+                db.SaveChanges();
+
+                return RedirectToAction("List");
             }
             catch
             {
