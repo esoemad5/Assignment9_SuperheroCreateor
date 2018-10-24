@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperheroCreator.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,11 @@ namespace SuperheroCreator.Controllers
 {
     public class SuperheroesController : Controller
     {
+        ApplicationDbContext db;
+        public SuperheroesController()
+        {
+            db = new ApplicationDbContext();
+        }
         // GET: Superheroes
         public ActionResult Index()
         {
@@ -32,9 +38,16 @@ namespace SuperheroCreator.Controllers
         {
             try
             {
+                Superhero newSuperhero = new Superhero();
+                newSuperhero.Name = collection.ToValueProvider().GetValue("Name").AttemptedValue;
+                newSuperhero.AlterEgo = collection.ToValueProvider().GetValue("AlterEgo").AttemptedValue;
+                newSuperhero.PrimaryAbility = collection.ToValueProvider().GetValue("PrimaryAbility").AttemptedValue;
+                newSuperhero.SecondaryAbility = collection.ToValueProvider().GetValue("SecondaryAbility").AttemptedValue;
+                newSuperhero.Catchphrase = collection.ToValueProvider().GetValue("Catchphrase").AttemptedValue;
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                db.Superheroes.Add(newSuperhero);
+                db.SaveChanges();
+                return RedirectToAction("Create");
             }
             catch
             {
