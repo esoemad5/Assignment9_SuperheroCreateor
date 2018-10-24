@@ -276,6 +276,8 @@
     <Content Include="Views\Superheroes\Read.cshtml" />
     <Content Include="Views\Superheroes\Update.cshtml" />
     <Content Include="Views\Superheroes\Delete.cshtml" />
+    <Content Include="Views\Superheroes\List.cshtml" />
+    <Content Include="Views\Superheroes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

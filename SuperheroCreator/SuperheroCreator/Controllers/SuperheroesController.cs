@@ -20,10 +20,15 @@ namespace SuperheroCreator.Controllers
             return View();
         }
 
+        public ActionResult List()
+        {
+            return View(db.Superheroes.ToList());
+        }
+
         // GET: Superheroes/Details/5
         public ActionResult Read(int id)
         {
-            return View();
+            return View(db.Superheroes.Where(s => s.ID == id).Single());
         }
 
         // GET: Superheroes/Create
@@ -48,6 +53,7 @@ namespace SuperheroCreator.Controllers
                 //db.Superheroes.Add(newSuperhero);
                 db.Superheroes.Add(hero);
                 db.SaveChanges();
+                // The hero object gets a new ID when it is put into the database. Prior to that, it is set to default 0.
                 return RedirectToAction("Create");
             }
             catch

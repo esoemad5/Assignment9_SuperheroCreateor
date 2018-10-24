@@ -1,13 +1,14 @@
 ﻿@model SuperheroCreator.Models.Superhero
 
 @{
-    ViewBag.Title = "Read";
+    ViewBag.Title = Model.Name;
 }
 
-<h2>Read</h2>
+<h2>
+    @Html.DisplayFor(model => model.Name)
+</h2>
 
 <div>
-    <h4>Superhero</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
