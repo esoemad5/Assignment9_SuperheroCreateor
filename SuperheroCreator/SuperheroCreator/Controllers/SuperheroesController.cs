@@ -21,7 +21,7 @@ namespace SuperheroCreator.Controllers
         }
 
         // GET: Superheroes/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Read(int id)
         {
             return View();
         }
@@ -29,23 +29,24 @@ namespace SuperheroCreator.Controllers
         // GET: Superheroes/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new Superhero());
         }
 
         // POST: Superheroes/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create([Bind(Include ="Name,AlterEgo,PrimaryAbility,SecondaryAbility,Catchphrase")] Superhero hero)// binding
         {
             try
             {
-                Superhero newSuperhero = new Superhero();
-                newSuperhero.Name = collection.ToValueProvider().GetValue("Name").AttemptedValue;
-                newSuperhero.AlterEgo = collection.ToValueProvider().GetValue("AlterEgo").AttemptedValue;
-                newSuperhero.PrimaryAbility = collection.ToValueProvider().GetValue("PrimaryAbility").AttemptedValue;
-                newSuperhero.SecondaryAbility = collection.ToValueProvider().GetValue("SecondaryAbility").AttemptedValue;
-                newSuperhero.Catchphrase = collection.ToValueProvider().GetValue("Catchphrase").AttemptedValue;
-                // TODO: Add insert logic here
-                db.Superheroes.Add(newSuperhero);
+                //Superhero newSuperhero = new Superhero();
+                //newSuperhero.Name = collection.ToValueProvider().GetValue("Name").AttemptedValue;
+                //newSuperhero.AlterEgo = collection.ToValueProvider().GetValue("AlterEgo").AttemptedValue;
+                //newSuperhero.PrimaryAbility = collection.ToValueProvider().GetValue("PrimaryAbility").AttemptedValue;
+                //newSuperhero.SecondaryAbility = collection.ToValueProvider().GetValue("SecondaryAbility").AttemptedValue;
+                //newSuperhero.Catchphrase = collection.ToValueProvider().GetValue("Catchphrase").AttemptedValue;
+
+                //db.Superheroes.Add(newSuperhero);
+                db.Superheroes.Add(hero);
                 db.SaveChanges();
                 return RedirectToAction("Create");
             }
@@ -56,20 +57,20 @@ namespace SuperheroCreator.Controllers
         }
 
         // GET: Superheroes/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Update(int id)
         {
             return View();
         }
 
         // POST: Superheroes/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Update(int id, FormCollection collection)
         {
             try
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
             catch
             {
