@@ -1,6 +1,7 @@
 ﻿using SuperheroCreator.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -58,13 +59,18 @@ namespace SuperheroCreator.Controllers
         }
         
         [HttpPost]
-        public ActionResult Update(int id, [Bind(Include = "Name,AlterEgo,PrimaryAbility,SecondaryAbility,Catchphrase")] Superhero hero)
+        public ActionResult Update(int id, [Bind(Include = "ID,Name,AlterEgo,PrimaryAbility,SecondaryAbility,Catchphrase")] Superhero hero)
         {
             try
             {
                 // The hero's ID changes with this method
-                db.Superheroes.Remove(db.Superheroes.Where(s => s.ID == id).Single());
-                db.Superheroes.Add(hero);
+               // db.Superheroes.Remove(db.Superheroes.Where(s => s.ID == id).Single());
+                //var modifiedHero = db.Superheroes.Where(s => s.ID == hero.ID).Single();
+                db.Entry(hero).State = EntityState.Modified;
+                //var current = db.Entry(hero).CurrentValues;
+                //var original = db.Entry(hero).OriginalValues.Clone();
+                //var something = db.Entry(hero).Entity;
+                ////db.Superheroes.Add(hero);
                 db.SaveChanges();
                 return RedirectToAction("List");
             }
