@@ -4,10 +4,10 @@
     ViewBag.Title = "Superhero Creator";
 }
 <body class="text-center">
-    <h1 class="cover-heading">Welcom to Superhero Creator!</h1>
+    <h1 class="cover-heading">Welcome to Superhero Creator!</h1>
     <p class="lead">Create, Read, Update, and Delete your favorite Superheroes!</p>
     <p class="lead">
-        <button href="Superheroes/Create" class="btn btn-lg btn-secondary">Create a Superhero!</button>
+        @Html.ActionLink("Create A New Superhero!", "Create", "Superheroes", null, new { @class = "btn btn-primary btn-large" })
     </p>
-    <img src="SuchConfidence.jpg"/>
+    <img src="~/Content/BetterPicture.jpg" width="400px" />
 </body>
